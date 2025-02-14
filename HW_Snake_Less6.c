@@ -334,9 +334,9 @@ void update(struct snake_t *head, struct food f[], const int32_t key)
 
 }
 
-int gameMode; // Переменная для хранения выбранного режима игры
-int snakeColor; // Цвет змейки
-int foodColor; // Цвет еды
+int gameMode; 
+int snakeColor;
+int foodColor; 
 
 void startMenu()
 {
@@ -400,18 +400,18 @@ void startMenu()
                 break;
             }
             if (choice > 3) break;
-        case 13: // Используем Enter для подтверждения
-            gameMode = choice; // Сохраняем выбранный режим
+        case 13: 
+            gameMode = choice; 
             break;
 
         }
         mvprintw(start_y + 8, start_x, "Selected mode: %d", choice);
-        if (gameMode != 0) // Выход из меню, если выбран режим
+        if (gameMode != 0) 
         {
             break;
         }
     }
-    // Выбор цвета змейки
+   
     start_y += 10;
     mvprintw(start_y, start_x, "Choose snake color:");
     mvprintw(start_y + 2, start_x, "1. Red");
@@ -469,17 +469,17 @@ void startMenu()
             }
             if (choice > 3) break;
         case 13:
-            snakeColor = choice; // Сохраняем выбранный цвет
+            snakeColor = choice; 
             break;
 
         }
         mvprintw(start_y + 8, start_x, "Selected color: %d", choice);
-        if (snakeColor != 0) // Выход из меню, если выбран цвет
+        if (snakeColor != 0) 
         {
             break;
         }
     }
-    // Выбор цвета еды
+    
     start_y += 10;
     mvprintw(start_y, start_x, "Choose food color:");
     mvprintw(start_y + 2, start_x, "1. Red");
@@ -537,24 +537,24 @@ void startMenu()
             }
             if (choice > 3) break;
         case 13:
-            foodColor = choice; // Сохраняем выбранный цвет
+            foodColor = choice; 
             break;
 
         }
         mvprintw(start_y + 8, start_x, "Selected color: %d", choice);
-        if (foodColor != 0) // Выход из меню, если выбран цвет
+        if (foodColor != 0) 
         {
             break;
         }
     }
-    // Очистка экрана
+    
     clear();
 }
 
 int main()
 {
     snake_t* snakes[PLAYERS];
-    // Инициализация цветов
+   
     initscr();
     start_color();
     init_pair(1, COLOR_RED, COLOR_BLACK);
@@ -569,7 +569,7 @@ int main()
     noecho();
     curs_set(FALSE);
     startMenu();
-    // Инициализация змей в зависимости от выбранного режима
+    
     if (gameMode == 1)
     {
         initSnake(snakes, START_TAIL_SIZE, 10, 10, 0, snakeColor);
@@ -582,7 +582,7 @@ int main()
     else
     {
         endwin();
-        return 0; // Выход из игры, если выбран режим "Выход"
+        return 0; 
     }
 
     mvprintw(0, 0, "Use arrows or WASD for control. Press 'F10' for EXIT");
@@ -598,7 +598,7 @@ int main()
     while( key_pressed != STOP_GAME )
     {
         key_pressed = getch();
-        for (int i = 0; i < gameMode; i++) // Играем только с теми змейками, которые нужны в выбранном режиме
+        for (int i = 0; i < gameMode; i++) 
         {
             update(snakes[i], food, key_pressed);
             repairSeed(food, SEED_NUMBER, snakes[i]);
@@ -613,7 +613,7 @@ int main()
             }
         }
     }
-    for (int i = 0; i < gameMode; i++) // Освобождаем память только для тех змей, которые были созданы
+    for (int i = 0; i < gameMode; i++) 
     {
         free(snakes[i]->tail);
         free(snakes[i]);
